@@ -1,26 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {Route} from 'react-router-dom';
+import Input from './Input';
+import Main from './Main';
+
+const users = [
+  {
+      id: 101,
+      username: '101호',
+      elec: 230
+  },
+  {
+      id: 102,
+      username: '102호',
+      elec: 340
+  }
+]
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  return(
+    <div>
+      <Route
+        path="/"
+        exact={true}
+        render={() => <Input users={users} />}
+      />
+      <Route path="/main" component={Main} />
     </div>
   );
-}
+};
 
 export default App;
