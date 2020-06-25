@@ -16,13 +16,13 @@ const Input = ({users}) => {
         });
     };
 
-    const onCheck = (e) => {
+    const onCheck = () => {
         const apiBaseUrl = "http://";   // 추후에 api와 연결
         const payload = {
-            id: e.target.id
+            id: Number(form.id)
         };
         try{
-            axios.post(apiBaseUrl+'check', payload).then((response) => { // 추후에 api와 연결
+            axios.post(apiBaseUrl, payload).then((response) => { // 추후에 api와 연결
                 console.log(response);
                 if(response.data.code === 200){
                     console.log('login successful');
@@ -63,7 +63,6 @@ const Input = ({users}) => {
                         </Button>
                 </Grid>
             </Container>
-            <b>{users.id}</b>
         </>
     );
 };

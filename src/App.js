@@ -1,20 +1,7 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
-import Input from './Input';
-import Main from './Main';
-
-const users = [
-  {
-      id: 101,
-      username: '101호',
-      elec: 230
-  },
-  {
-      id: 102,
-      username: '102호',
-      elec: 340
-  }
-]
+import Input from './components/Input';
+import Main from './components/Main';
 
 function App() {
   return(
@@ -22,7 +9,7 @@ function App() {
       <Route
         path="/"
         exact={true}
-        render={() => <Input users={users} />}
+        render={() => <Input />}
       />
       <Route path="/main" component={Main} />
     </div>
