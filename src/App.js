@@ -9,7 +9,7 @@ function App() {
       <Route
         path="/"
         exact={true}
-        render={() => <Input />}
+        component={Input}
       />
       <Route path="/main" component={Main} />
     </div>

@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Button, TextField, Grid, Container, Typography} from '@material-ui/core';
 import HeadBar from './HeadBar';
 
-const Input = ({users}) => {
+const Input = () => {
     const [form, setForm] = useState({
         id: ''
     });
