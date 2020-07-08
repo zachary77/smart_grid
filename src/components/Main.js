@@ -61,11 +61,3 @@ const Main = () => {
 };
 
 export default Main;
-
-
-// response 받은 걸로 setState
-// fetchPosts().then(response => {
-//     this.setState({
-//       posts: response.posts
-//     });
-//   });
