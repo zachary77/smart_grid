@@ -1,4 +1,4 @@
-import React, {useState, useMemo, useEffect} from 'react';
+import React, {useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Container, Typography, Card, CardContent} from '@material-ui/core';
 import ReactSpeedometer from "react-d3-speedometer";
@@ -11,37 +11,22 @@ const useStyles = makeStyles({
 });
 
 const Main = () => {
-    // response 받은 걸로 할 예정
-    const valueAPI = useMemo(() => {
-        const apiBaseUrl = "http://http://10.120.73.90:3000/powerConsumption/get";
-
-        try{
-            fetch(apiBaseUrl).then(response => response.json())
-            .then(response => {
-                if(response.token) {
-                    localStorage.setItem('wtw-token', response.token);
-                }
-            });
-        }catch (error){
-            console.log(error);
-        }
-    }, []);
     const classes = useStyles();
-    const [value, setValue] = useState(valueAPI);
-    const max = 600;
+    const [max, setMax] = useState(600);
+    const [value, setValue] = useState(120);
     const [lv, setLv] = useState(1);
 
-    useEffect(() => {
-        if(value > 200){
-            setLv(2);
-        };
-        if(value > 400){
-            setLv(3);
-        };
-        if(value >= max){
-            setValue(max);
-        };
-    }, [lv, value, max]);
+    const increaseLv = () => {
+        setLv(lv + 1);
+    };
+
+    const onIncrease = () => {
+        setValue(value + 1);
+    };
+
+    const isMax = () => {
+        setMax(max + 100);
+    };
 
     return (
         <>
@@ -76,3 +61,11 @@ const Main = () => {
 };
 
 export default Main;
+
+
+// response 받은 걸로 setState
+// fetchPosts().then(response => {
+//     this.setState({
+//       posts: response.posts
+//     });
+//   });

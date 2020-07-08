@@ -17,9 +17,9 @@ const Input = () => {
     };
 
     const onCheck = () => {
-        const apiBaseUrl = "http://10.120.73.90:3000/powerConsumption/get";   // 추후에 api와 연결
+        const apiBaseUrl = "http://";   // 추후에 api와 연결
         const payload = {
-            address: Number(form.id)
+            id: Number(form.id)
         };
         try{
             axios.post(apiBaseUrl, payload).then((response) => { // 추후에 api와 연결
