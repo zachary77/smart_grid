@@ -1,8 +1,9 @@
-import React, {useState} from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Container, Typography, Card, CardContent} from '@material-ui/core';
 import ReactSpeedometer from "react-d3-speedometer";
 import HeadBar from './HeadBar';
+import axios from 'axios';
 
 const useStyles = makeStyles({
     body: {
@@ -11,22 +12,44 @@ const useStyles = makeStyles({
 });
 
 const Main = () => {
+    const [value, setValue] = useState(null);
     const classes = useStyles();
-    const [max, setMax] = useState(600);
-    const [value, setValue] = useState(120);
+    const max = 600;
     const [lv, setLv] = useState(1);
+    const [error, setError] = useState(null);
 
-    const increaseLv = () => {
-        setLv(lv + 1);
-    };
+    useEffect(() => {
+        const fetchValues = async () => {
+            try {
+                // 요청이 시작 할 때에는 error 와 value 를 초기화하고
+                setError(null);
+                setValue(null);
+                const response = await axios.get(
+                    'http://34.64.239.172:3000/'
+                );
+                setValue(response.data); // 데이터는 response.data 안에 들어있습니다.
+            } catch (e) {
+                setError(e);
+                console.log(e);
+            }
+        };
 
-    const onIncrease = () => {
-        setValue(value + 1);
-    };
+        fetchValues();
+    }, []);
 
-    const isMax = () => {
-        setMax(max + 100);
-    };
+    useEffect(() => {
+        if(value > 200){
+            setLv(2);
+        };
+        if(value > 400){
+            setLv(3);
+        };
+        if(value >= max){
+            setValue(max);
+        };
+    }, [lv, value, max]);
+
+    if (error) return <div>API연결에서 에러 발생</div>;
 
     return (
         <>
