@@ -1,9 +1,9 @@
-import React, { useState, useMemo, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import {Grid, Container, Typography, Card, CardContent} from '@material-ui/core';
 import ReactSpeedometer from "react-d3-speedometer";
 import HeadBar from './HeadBar';
-import axios from 'axios';
+// import axios from 'axios';
 
 const useStyles = makeStyles({
     body: {
@@ -11,31 +11,38 @@ const useStyles = makeStyles({
     },
 });
 
-const Main = () => {
-    const [value, setValue] = useState(null);
+function Main( data ) {
+    const [value, setValue] = useState(data.match.params.data); // history.push 로 보낸 데이터를 match parameter를 이용해 받아옴
     const classes = useStyles();
     const max = 600;
     const [lv, setLv] = useState(1);
-    const [error, setError] = useState(null);
+    // const [error, setError] = useState(null);
 
-    useEffect(() => {
-        const fetchValues = async () => {
-            try {
-                // 요청이 시작 할 때에는 error 와 value 를 초기화하고
-                setError(null);
-                setValue(null);
-                const response = await axios.get(
-                    'http://34.64.239.172:3000/'
-                );
-                setValue(response.data); // 데이터는 response.data 안에 들어있습니다.
-            } catch (e) {
-                setError(e);
-                console.log(e);
-            }
-        };
+    //console.log(data.match.params.data);
 
-        fetchValues();
-    }, []);
+    // useEffect(() => {
+    //     const fetchValues = async () => {
+    //         const apiBaseUrl = 'http://34.64.239.172:3000/powerConsumption/get';
+    //         try {
+    //             // 요청이 시작 할 때에는 error 와 value 를 초기화하고
+    //             setError(null);
+    //             setValue(null);
+    //             const response = await axios.get(
+    //                 apiBaseUrl, {
+    //                     params: {
+    //                         address: key
+    //                     }
+    //                 }
+    //             );
+    //             setValue(response.powerConsumption); // 데이터는 response.powerConsumption 안에 들어있음
+    //         } catch (e) {
+    //             setError(e);
+    //             console.log(e);
+    //         }
+    //     };
+
+    //     fetchValues();
+    // }, []);
 
     useEffect(() => {
         if(value > 200){
@@ -49,7 +56,7 @@ const Main = () => {
         };
     }, [lv, value, max]);
 
-    if (error) return <div>API연결에서 에러 발생</div>;
+    // if (error) return <div>API연결에서 에러 발생</div>;
 
     return (
         <>
