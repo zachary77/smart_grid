@@ -11,7 +11,7 @@ function App() {
         exact={true}
         component={Input}
       />
-      <Route path="/main" component={Main} />
+      <Route path="/main/:data" component={Main} /> {/*/:data 는 match를 이용해서 데이터를 받을거임*/}
     </div>
   );
 };
